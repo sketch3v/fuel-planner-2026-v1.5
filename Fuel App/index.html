@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fuel Planner - Plan Your Fuel Stops</title>
+    
+    <!-- Google Fonts - DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+</head>
+<body>
+    <!-- User Header (shows when logged in) -->
+    <header class="user-header" id="user-header">
+        <div class="user-info">
+            <div class="user-avatar" id="user-avatar">U</div>
+            <div class="user-details">
+                <div class="user-company" id="user-company">Loading...</div>
+                <div class="user-role" id="user-role">User</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="admin-link hidden" id="admin-link" title="Admin Dashboard">
+                ⚙️
+            </button>
+            <button class="logout-btn" id="logout-btn" title="Logout">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+    
+    <div class="app-container">
+        <!-- Input View -->
+        <div id="input-view" class="view active">
+            <div class="content-section">
+                <div class="welcome-header">
+                    <h1>Welcome to Fuel Planner!</h1>
+                    <p class="subtitle">Ready to hit the road?</p>
+                </div>
+                
+                <div class="map-container">
+                    <div id="input-map"></div>
+                    <div class="map-controls">
+                        <button class="map-btn" id="zoom-in">+</button>
+                        <button class="map-btn" id="zoom-out">−</button>
+                        <button class="map-btn location-btn" id="locate-me">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L19 21l-7-4-7 4 7-19z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="zip-buttons-row">
+                    <button class="zip-btn" id="start-zip-btn">
+                        <svg class="zip-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        <span id="start-zip-text">Start ZIP</span>
+                    </button>
+                    <button class="zip-btn" id="end-zip-btn">
+                        <svg class="zip-icon flag-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>
+                        </svg>
+                        <span id="end-zip-text">End ZIP</span>
+                    </button>
+                </div>
+                
+                <div class="params-row">
+                    <div class="param-box tank-box" id="tank-box">
+                        <span class="param-label">Tank</span>
+                        <div class="param-value">
+                            <span id="tank-value">150</span>
+                            <span class="param-unit">gal</span>
+                        </div>
+                    </div>
+                    <div class="param-box gallons-box" id="gallons-box">
+                        <span class="param-label">Gallons Now</span>
+                        <div class="param-value">
+                            <span id="gallons-value">75</span>
+                            <span class="param-unit">gal</span>
+                        </div>
+                    </div>
+                    <div class="param-box mpg-box" id="mpg-box">
+                        <span class="param-label">MPG</span>
+                        <div class="param-value">
+                            <span id="mpg-value">8.0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="calculate-btn" id="calculate-btn">
+                    Calculate
+                </button>
+            </div>
+        </div>
+        
+        <!-- Results View -->
+        <div id="results-view" class="view">
+            <div class="map-container results-map">
+                <div id="results-map"></div>
+                <div class="map-controls">
+                    <button class="map-btn" id="results-zoom-in">+</button>
+                    <button class="map-btn" id="results-zoom-out">−</button>
+                    <button class="map-btn location-btn" id="results-locate">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L19 21l-7-4-7 4 7-19z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="results-content">
+                <div id="fuel-stops-container">
+                    <!-- Fuel stops will be inserted here dynamically -->
+                </div>
+                
+                <button class="back-btn" id="back-btn">
+                    <span class="back-arrow">↩</span>
+                    Go back
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Start ZIP Selection Popup (with My Location option) -->
+    <div id="zip-popup" class="popup-overlay hidden">
+        <div class="popup-content">
+            <button class="popup-option" id="popup-manual">
+                Enter manually
+            </button>
+            <div class="popup-divider">
+                <span>or</span>
+            </div>
+            <button class="popup-option popup-option-location" id="popup-location">
+                <svg class="location-pin" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                My Location
+            </button>
+        </div>
+    </div>
+    
+    <!-- End ZIP Selection Popup (manual only) -->
+    <div id="end-zip-popup" class="popup-overlay hidden">
+        <div class="popup-content zip-entry-content">
+            <h3>Enter Destination ZIP</h3>
+            <input type="text" id="end-zip-entry-input" class="zip-entry-input" placeholder="Enter 5-digit ZIP" maxlength="5" inputmode="numeric">
+            <div class="zip-entry-buttons">
+                <button class="zip-entry-cancel" id="end-zip-entry-cancel">Cancel</button>
+                <button class="zip-entry-confirm" id="end-zip-entry-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ZIP Manual Entry Popup (for Start ZIP) -->
+    <div id="zip-entry-popup" class="popup-overlay hidden">
+        <div class="popup-content zip-entry-content">
+            <h3 id="zip-entry-title">Enter ZIP Code</h3>
+            <input type="text" id="zip-entry-input" class="zip-entry-input" placeholder="Enter 5-digit ZIP" maxlength="5" inputmode="numeric">
+            <div class="zip-entry-buttons">
+                <button class="zip-entry-cancel" id="zip-entry-cancel">Cancel</button>
+                <button class="zip-entry-confirm" id="zip-entry-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Wheel Picker Popup -->
+    <div id="wheel-popup" class="popup-overlay hidden">
+        <div class="wheel-popup-content">
+            <div class="wheel-header">
+                <button class="wheel-cancel" id="wheel-cancel">Cancel</button>
+                <span class="wheel-title" id="wheel-title">Select Value</span>
+                <button class="wheel-done" id="wheel-done">Done</button>
+            </div>
+            <div class="wheel-container">
+                <div class="wheel-scroll" id="wheel-scroll">
+                    <!-- Wheel items will be generated dynamically -->
+                </div>
+                <div class="wheel-highlight"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Calculating optimal fuel stops...</p>
+    </div>
+    
+    <!-- Error Toast -->
+    <div id="error-toast" class="error-toast hidden">
+        <p id="error-message"></p>
+    </div>
+    
+    <!-- Hidden inputs for storing values -->
+    <input type="hidden" id="start-zip" value="">
+    <input type="hidden" id="end-zip" value="">
+    <input type="hidden" id="tank-size" value="150">
+    <input type="hidden" id="current-gallons" value="75">
+    <input type="hidden" id="mpg" value="8.0">
+    
+    <!-- Google Maps JavaScript API -->
+    <script>
+        window.googleMapsReady = false;
+        function initGoogleMaps() {
+            window.googleMapsReady = true;
+            if (window.bootstrapFuelPlanner) {
+                window.bootstrapFuelPlanner();
+            }
+        }
+    </script>
+    <!-- Mapbox GL JS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script src="auth.js"></script>
+    <script src="fuel-prices.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
