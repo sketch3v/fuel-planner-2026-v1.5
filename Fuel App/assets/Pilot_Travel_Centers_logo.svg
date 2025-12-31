@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="32" viewBox="0 0 80 32">
+  <defs>
+    <style>
+      .pilot-text { font-family: Arial Black, Arial, sans-serif; font-weight: 900; }
+    </style>
+  </defs>
+  <text x="2" y="26" class="pilot-text" font-size="28" fill="#c41230">Pilot</text>
+</svg>
