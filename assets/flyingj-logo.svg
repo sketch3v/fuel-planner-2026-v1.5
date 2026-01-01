@@ -1,0 +1,8 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='220' height='60' viewBox='0 0 220 60'>
+  <rect width='220' height='60' rx='12' fill='#c91429'/>
+  <text x='15' y='38' font-family='"Segoe UI", Arial, sans-serif' font-size='32' font-weight='700' fill='#ffffff'>FLYING</text>
+  <text x='150' y='38' font-family='"Segoe UI", Arial, sans-serif' font-size='32' font-weight='700' fill='#ffffff'>J</text>
+  <circle cx='175' cy='30' r='18' stroke='#ffffff' stroke-width='3' fill='none'/>
+  <path d='M175 16 L175 44' stroke='#ffffff' stroke-width='3' stroke-linecap='round'/>
+  <path d='M162 30 L188 30' stroke='#ffffff' stroke-width='3' stroke-linecap='round'/>
+</svg>

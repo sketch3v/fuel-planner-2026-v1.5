@@ -1,0 +1,22 @@
+{
+  "appId": "com.yourcompany.fuelplanner",
+  "appName": "Fuel Planner",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https"
+  },
+  "ios": {
+    "contentInset": "always",
+    "allowsLinkPreview": false,
+    "scrollEnabled": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#f5f5f7",
+      "showSpinner": false
+    }
+  }
+}
+
