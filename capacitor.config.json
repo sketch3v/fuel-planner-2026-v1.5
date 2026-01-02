@@ -1,7 +1,7 @@
 {
   "appId": "com.yourcompany.fuelplanner",
   "appName": "Fuel Planner",
-  "webDir": ".",
+  "webDir": "www",
   "server": {
     "androidScheme": "https",
     "iosScheme": "https"
