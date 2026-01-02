@@ -204,16 +204,8 @@ function bootstrapFuelPlanner() {
 // ============================================
 
 function checkAuthentication() {
-    const savedUser = localStorage.getItem('fuelPlannerUser');
-    
-    if (!savedUser) {
-        console.log('🔐 No user session found, redirecting to login...');
-        window.location.href = 'login.html';
-        return false;
-    }
-    
-    const user = JSON.parse(savedUser);
-    console.log('✅ User authenticated:', user.phone, '(' + user.role + ')');
+    // DISABLED: Login requirement removed for iOS testing
+    console.log('✅ Authentication bypassed - login disabled');
     return true;
 }
 
@@ -222,6 +214,14 @@ function checkAuthentication() {
 // ============================================
 
 function setupUserHeader() {
+    // Hide user header when login is disabled
+    const userHeader = document.getElementById('user-header');
+    if (userHeader) {
+        userHeader.style.display = 'none';
+    }
+    return;
+    
+    // DISABLED: Original user header code
     const savedUser = localStorage.getItem('fuelPlannerUser');
     if (!savedUser) return;
     
