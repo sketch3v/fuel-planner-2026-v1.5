@@ -4,20 +4,19 @@
   "description": "Fuel Planner - Plan your fuel stops efficiently",
   "main": "app.js",
   "scripts": {
+    "build": "node build.js",
     "start": "python -m http.server 8080",
-    "cap:sync": "npx cap sync",
-    "cap:open:ios": "npx cap open ios",
-    "cap:build:ios": "npx cap sync ios && npx cap open ios"
+    "ios:build": "npm run build && npx cap sync ios",
+    "ios:open": "npx cap open ios",
+    "ios:run": "npm run build && npx cap sync ios && npx cap open ios"
   },
   "keywords": [
     "fuel",
     "planner",
     "trucking",
-    "route",
-    "pilot",
-    "flying-j"
+    "ios"
   ],
-  "author": "Your Company",
+  "author": "Fuel Planner Team",
   "license": "MIT",
   "dependencies": {
     "@capacitor/core": "^5.7.0",
@@ -27,4 +26,3 @@
     "@capacitor/cli": "^5.7.0"
   }
 }
-
