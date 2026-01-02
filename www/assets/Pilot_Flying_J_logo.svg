@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="32" viewBox="0 0 140 32">
+  <defs>
+    <style>
+      .fj-text { font-family: Arial Black, Arial, sans-serif; font-weight: 900; }
+    </style>
+  </defs>
+  <text x="2" y="24" class="fj-text" font-size="22" fill="#c41230">FLYING</text>
+  <g transform="translate(88, 4)">
+    <!-- Airplane/J symbol -->
+    <path fill="#c41230" d="M0,12 L15,0 L18,3 L8,12 L18,21 L15,24 L0,12 Z"/>
+    <text x="16" y="22" class="fj-text" font-size="22" fill="#c41230">J</text>
+  </g>
+</svg>
