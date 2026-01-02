@@ -2,6 +2,8 @@
 
 A web application that helps truck drivers plan fuel stops along their route using **Pilot** and **Flying J** stations exclusively. Optimizes costs, considers tank size, and recommends gallons to fill at each station.
 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 ## Features
 
 ### Main Screen
