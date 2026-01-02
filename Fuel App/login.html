@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fuel Planner - Login</title>
+    
+    <!-- Google Fonts - DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo and Header -->
+            <div class="login-header">
+                <div class="login-logo">
+                    <span class="logo-icon">🚛</span>
+                </div>
+                <h1>Fuel Planner</h1>
+                <p class="login-subtitle">Sign in to plan your fuel stops</p>
+            </div>
+            
+            <!-- Phone Step -->
+            <div id="phone-step" class="login-step active">
+                <label for="phone-input" class="input-label">Phone Number</label>
+                <div class="phone-input-wrapper">
+                    <span class="country-code">+1</span>
+                    <input 
+                        type="tel" 
+                        id="phone-input" 
+                        class="phone-input"
+                        placeholder="(555) 123-4567"
+                        maxlength="14"
+                        autocomplete="tel"
+                    >
+                </div>
+                <button id="send-code-btn" class="primary-btn" disabled>
+                    <span class="btn-text">Send Verification Code</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+                <p class="login-info">We'll send you a 6-digit code to verify your phone number.</p>
+            </div>
+            
+            <!-- Verification Code Step -->
+            <div id="code-step" class="login-step">
+                <div class="code-header">
+                    <button id="back-to-phone" class="back-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Change number
+                    </button>
+                </div>
+                <p class="code-sent-to">Enter the code sent to <span id="phone-display"></span></p>
+                
+                <div class="code-inputs">
+                    <input type="text" maxlength="1" class="code-digit" data-index="0" inputmode="numeric">
+                    <input type="text" maxlength="1" class="code-digit" data-index="1" inputmode="numeric">
+                    <input type="text" maxlength="1" class="code-digit" data-index="2" inputmode="numeric">
+                    <input type="text" maxlength="1" class="code-digit" data-index="3" inputmode="numeric">
+                    <input type="text" maxlength="1" class="code-digit" data-index="4" inputmode="numeric">
+                    <input type="text" maxlength="1" class="code-digit" data-index="5" inputmode="numeric">
+                </div>
+                
+                <button id="verify-code-btn" class="primary-btn" disabled>
+                    <span class="btn-text">Verify & Sign In</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+                
+                <div class="resend-wrapper">
+                    <span id="resend-timer">Resend code in <span id="timer-count">60</span>s</span>
+                    <button id="resend-code-btn" class="resend-btn hidden">Resend Code</button>
+                </div>
+            </div>
+            
+            <!-- Error Message -->
+            <div id="login-error" class="login-error hidden">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span id="error-text"></span>
+            </div>
+            
+            <!-- reCAPTCHA container (invisible) -->
+            <div id="recaptcha-container"></div>
+        </div>
+        
+        <p class="login-footer">
+            Only authorized users can access this app.<br>
+            Contact your administrator for access.
+        </p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script src="auth.js"></script>
+</body>
+</html>
+
+
+
+
+
